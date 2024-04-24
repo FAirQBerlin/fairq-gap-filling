@@ -9,9 +9,9 @@ select
 	feinstaub_pm2_5 as pm25,
 	stickstoffdioxid as no2
 from
-	stadtstruktur_measuring_stations_processed
+  stadtstruktur_measuring_stations_processed
 inner join  
-  messstationen_daten	using(station_id)
+  messstationen_daten md on (substring(id, 4, 3) = md.station_id)
 where id in (
 select id from fairq_{{ mode }}features.stations_for_predictions {{ if (is_active_only) "where is_active" }}
 )
